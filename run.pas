@@ -25,23 +25,22 @@ function Game(): integer;
 var
   i : integer;
 begin
-  randomize;
-  
   bunch:= len;
   
   if(human = 1) then
   begin
         writeln('Новая игра. Спичек в кучке ', bunch);
-        writeln((white1[bunch]/(white1[bunch]+white2[bunch])));
   end;
+  
   for i:=1 to len do
   begin
     tmp1[i]:=0;
     tmp2[i]:=0;
   end;
+  
   win:=0;
   
-  while(bunch < 2) do
+  while(bunch > 2) do
   begin  
     if(random()<(white1[bunch]/(white1[bunch]+white2[bunch]))) then
     begin
@@ -57,21 +56,22 @@ begin
       if(human = 1) then
         writeln('Компьютер берет 2 спички');
     end;
+    
     if(bunch <= 2) then
     begin
       if(human = 1) then       
       begin
         writeln('========= Человек выиграл ============');
-        win := 1;
-        break
       end;
+      win := 1;
+      break;
     end
     else
     begin
       if(human = 1) then
-        write('Спичек в кучке ');
-        writeln(bunch);
+        writeln('Спичек в кучке ', bunch);
     end;
+    
     if(human = 1) then
     begin
       writeln('Ход человека');
@@ -91,21 +91,21 @@ begin
         bunch := bunch - 2;
       end;
     end;
+    
     if(bunch <= 2) then
     begin
       if(human = 1) then
       begin
         writeln('========= Компьютер выиграл =========');
-        win := 2;
-        break;
       end;
+      win := 2;
+      break;
     end
     else
     begin
       if(human = 1) then
       begin
-        write('Спичек в кучке ');
-        writeln(bunch);
+        writeln('Спичек в кучке ', bunch);
       end;
     end;
   end;
@@ -124,16 +124,17 @@ begin
   begin
     for i:=1 to len do
     begin
-       if tmp1[i] > 0 then
+       if (tmp1[i] > 0) then
        begin
          if(tmp1[i] = 1) and (white1[i] > 1) then
            white1[i] := white1[i] - 1;              
-         if(tmp1[i] = 2) and (white1[i] > 1) then
+         if(tmp1[i] = 2) and (white2[i] > 1) then
            white2[i] := white2[i] - 1;
          break;
        end;
     end;
   end;
+  
   if(win = 1) then
   begin
     for i:=1 to len do
@@ -194,6 +195,6 @@ begin
   writeln(black2);
     
   human := 1;
-  
-  Game();
+  while True do
+    Game();
 end.
