@@ -173,26 +173,26 @@ begin
   
   human := 0;
   
-  t := 100;
+  t := 1;
 
-  for j:=1 to 10 do
+  for j:=1 to 10 do 
+    // Число 10 в данной строчке - количество итераций обучения
+    // Чем больше число, тем дольше обучаеться нейросеть и тем лучше потом играет. 
+    // Рекомендую значения от 10 до 100
   begin
-    for i:=1 to j*100 do
-        Game();
-    v := 0;
-
-    for i:=1 to 100 do
+    for i:=1 to j*25 do
     begin
-        if(Game() = 2) then
-            v += 1;
+        writeln('Процесс обучения... Проведено циклов - ', t);
+        t:=t+1;
+        Game();
     end;
-
-    t := 0.99 * t + 0.01 * v;
   end;
+  writeln();
   writeln(white1);
   writeln(white2);
   writeln(black1);
   writeln(black2);
+  writeln();
     
   human := 1;
   while True do
